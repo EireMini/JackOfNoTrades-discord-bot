@@ -125,7 +125,7 @@ export const schedule: CommandInterface = {
 			const buttonClicked = i.customId;
 			console.log(`Schedule Button Clicked:\n   User: ${user}\n   ButtonClicked: ${buttonClicked}`);
 
-			user = assignPriority(user);
+			user = assignUserName(user);
 
 			if (buttonClicked === "yes") {
 				await i.deferUpdate();
@@ -350,6 +350,12 @@ const getCountdown = (timeScheduled: string) => {
 	return [asHM[0], asHM[1], asHM[2], localScheduledTime];
 };
 
+const assignUserName = (user: string) => {
+	user = assignPriority(user);
+	user = assignIrish(user);
+	return user;
+};
+
 const assignPriority = (user: string) => {
 	const priority = [
 		"Roald",
@@ -368,7 +374,25 @@ const assignPriority = (user: string) => {
 
 	for (var i = 0; i < priority.length; i++) {
 		if (user === priority[i]) {
-			user = "🎗️" + user;
+			user = `🎗️${user}`;
+		}
+	}
+	return user;
+};
+
+const assignIrish = (user: string) => {
+	const priority = [
+		"Mini",
+		"NinjaM0nk",
+		"Matt",
+		"Porsche",
+		"Karl",
+		"Dav1d"
+	];
+
+	for (var i = 0; i < priority.length; i++) {
+		if (user === priority[i]) {
+			user = `☘️${user} 🇮🇪`;
 		}
 	}
 	return user;
