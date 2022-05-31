@@ -420,7 +420,7 @@ const assignIrish = (user: string) => {
 		"NinjaM0nk",
 		"Matt",
 		"Porsche",
-		"Karl",
+		"Karlshx",
 		"Dav1d"
 	];
 
