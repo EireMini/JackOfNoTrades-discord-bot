@@ -313,9 +313,13 @@ const createString = (yesEntry: string[], noEntry: string[]) => {
 		yesString = "";
 		for (var l = 0; l < yesEntry.length; l++) {
 			if (l == 9) {
-				yesString = yesString + yesEntry[l] + "\n🔹 10 Players🔹\n";
-			} else {
-				yesString = yesString + yesEntry[l] + "\n";
+				yesString = yesString + (l+1) + " | " + yesEntry[l] + "\n🔹 10 Players🔹\n";
+			} 
+			else if (l >= 10) {
+				yesString = yesString + (l+1) + " | " + yesEntry[l] + "\n";
+			}
+			else {
+				yesString = yesString + (l+1) + " | " + yesEntry[l] + "\n";
 			}
 		}
 	}
