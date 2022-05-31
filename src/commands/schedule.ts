@@ -78,6 +78,8 @@ export const schedule: CommandInterface = {
 
 			new MessageButton().setCustomId("no").setLabel("No").setStyle("DANGER").setEmoji("👎"),
 
+			new MessageButton().setCustomId("copy").setLabel("Copy IP").setStyle("SECONDARY").setEmoji("✂️"),
+
 			new MessageButton().setCustomId("update").setStyle("SECONDARY").setEmoji("🔄")
 		);
 
@@ -206,6 +208,9 @@ export const schedule: CommandInterface = {
 					embeds: [mainEmbed],
 					components: [buttons],
 				});
+			} else if (buttonClicked === "copy") {
+				await i.deferUpdate();
+				copyTextToClipboard("connect crayon.csgo.fr:27015; password fun");
 			} else if (buttonClicked === "update") {
 				await i.deferUpdate();
 
@@ -230,6 +235,8 @@ export const schedule: CommandInterface = {
 				new MessageButton().setCustomId("yes").setLabel("Yes").setStyle("SUCCESS").setEmoji("👍").setDisabled(true),
 
 				new MessageButton().setCustomId("maybe").setLabel("Maybe").setStyle("PRIMARY").setEmoji("🤷").setDisabled(true),
+
+				new MessageButton().setCustomId("copy").setLabel("Copy IP").setStyle("PRIMARY").setEmoji("✂️").setDisabled(false),
 
 				new MessageButton().setCustomId("no").setLabel("No").setStyle("DANGER").setEmoji("👎").setDisabled(true)
 			);
@@ -289,6 +296,8 @@ const createButton = () => {
 
 		new MessageButton().setCustomId("no").setLabel("No").setStyle("DANGER").setEmoji("👎"),
 
+		new MessageButton().setCustomId("copy").setLabel("Copy IP").setStyle("SECONDARY").setEmoji("✂️"),
+
 		new MessageButton().setCustomId("update").setStyle("SECONDARY").setEmoji("🔄")
 	);
 	return buttons;
@@ -299,7 +308,7 @@ const createString = (yesEntry: string[], noEntry: string[]) => {
 	let yesString: string;
 	let noString: string;
 	if (yesEntry.length == 0) {
-		yesString = "Empty";
+		yesString = "~Empty~";
 	} else {
 		yesString = "";
 		for (var l = 0; l < yesEntry.length; l++) {
@@ -313,7 +322,7 @@ const createString = (yesEntry: string[], noEntry: string[]) => {
 
 	// For No
 	if (noEntry.length == 0) {
-		noString = "Empty";
+		noString = "~Empty~";
 	} else {
 		noString = "";
 		for (var l = 0; l < noEntry.length; l++) {
@@ -366,6 +375,11 @@ const getCountdownTimeFormatted = (countdownHour: number | Date, countdownMinute
 		return `Starting in ${countdownMinute} minutes.`;
 };
 
+function copyTextToClipboard(text: string) {
+	//const util = require('util');
+	require('child_process').spawn('clip').stdin.end(text);
+};
+
 const assignUserName = (user: string) => {
 	user = assignPriority(user);
 	user = assignIrish(user);
@@ -390,7 +404,7 @@ const assignPriority = (user: string) => {
 
 	for (var i = 0; i < priority.length; i++) {
 		if (user === priority[i]) {
-			user = `🎗️${user}`;
+			user = `🎗️ ${user}`;
 		}
 	}
 	return user;
@@ -408,7 +422,7 @@ const assignIrish = (user: string) => {
 
 	for (var i = 0; i < priority.length; i++) {
 		if (user === priority[i]) {
-			user = `☘️${user} 🇮🇪`;
+			user = `☘️ ${user}  🇮🇪`;
 		}
 	}
 	return user;
