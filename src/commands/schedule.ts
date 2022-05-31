@@ -36,11 +36,14 @@ export const schedule: CommandInterface = {
 			});
 		}
 
+		const messageContent = mentionSubs + "\n\nConnect: steam://connect/crayon.csgo.fr:27015/fun"
 		const yesEntry: string[] = [];
 		const noEntry: string[] = [];
 
 		const timeScheduled = interaction.options.getString("time")!;
 		const [countdownHour, countdownMinute, totalMinutes, epochTime] = getCountdown(timeScheduled);
+
+		const countdownTimeFormatted = getCountdownTimeFormatted(countdownHour, countdownMinute);
 
 		const epochTimeAsDate = epochTime as Date;
 
@@ -49,22 +52,22 @@ export const schedule: CommandInterface = {
 		// Embed
 		const mainEmbed = new MessageEmbed()
 			.setColor("0xFF6F00" as ColorResolvable)
-			.setTitle("10 Man")
+			.setTitle("CSGO: 10 Man")
 			.setURL("https://10man.commoncrayon.com/")
-			.setDescription("Join a 10 Man!")
+			.setDescription("Join a 10 Man! 🔫")
 			.addFields(
 				{ name: "Time:", value: `<t:${epochTimeStr}>` },
 				{
 					name: "🔄 Countdown:",
-					value: `Starting in ${countdownHour}H ${countdownMinute}M`,
+					value: countdownTimeFormatted,
 				},
-				{ name: "__Yes:__", value: "Empty", inline: true },
-				{ name: "__No:__", value: "Empty", inline: true }
+				{ name: "__Yes:__", value: "~Empty~", inline: true },
+				{ name: "__No:__", value: "~Empty~", inline: true }
 			)
 			.setThumbnail("https://cdn.discordapp.com/icons/118758644752842755/107536389c2960072fa81163e3fa4698.webp")
 			.setFooter({
 				text: "Server IP: connect crayon.csgo.fr:27015; password fun",
-				iconURL: "https://i.imgur.com/nuEpvJd.png",
+				iconURL: "https://i.imgur.com/nuEpvJd.png"
 			});
 
 		// Buttons
@@ -81,9 +84,9 @@ export const schedule: CommandInterface = {
 		const channelName = (interaction.channel as TextChannel).name;
 		console.log(`Schedule triggered by ${interaction.user.tag} in #${channelName}.`);
 		await interaction.reply({
-			content: mentionSubs,
+			content: messageContent,
 			embeds: [mainEmbed],
-			components: [buttons],
+			components: [buttons]
 		});
 
 		const reply = await interaction.fetchReply() as Message
@@ -241,8 +244,10 @@ export const schedule: CommandInterface = {
 const createEmbed = (yesString: string, noString: string, timeScheduled: string, yesEntry: string[], noEntry: string[]) => {
 	let [countdownHour, countdownMinute, totalMinutes, epochTime] = getCountdown(timeScheduled);
 
+	const countdownTimeFormatted = getCountdownTimeFormatted(countdownHour, countdownMinute);
+
 	if (totalMinutes > 0) {
-		var countdownOutput = `Starting in ${countdownHour}H ${countdownMinute}M`;
+		var countdownOutput = countdownTimeFormatted;
 	} else {
 		var countdownOutput = `Started!`;
 	}
@@ -251,19 +256,19 @@ const createEmbed = (yesString: string, noString: string, timeScheduled: string,
 
 	var mainEmbed = new MessageEmbed()
 		.setColor("0xFF6F00" as ColorResolvable)
-		.setTitle("10 Man")
+		.setTitle("CSGO: 10 Man")
 		.setURL("https://10man.commoncrayon.com/")
-		.setDescription("Join a 10 Man!")
+		.setDescription("Join a 10 Man! 🔫")
 		.addFields(
 			{ name: "Time:", value: `<t:${epochTimeStr}>` },
 			{ name: "🔄 Countdown:", value: countdownOutput },
 			{
-				name: `__Yes(${yesEntry.length}):__`,
+				name: `__ Yes (${yesEntry.length}):__`,
 				value: yesString,
 				inline: true,
 			},
 			{
-				name: `__No(${noEntry.length}):__`,
+				name: `__ No (${noEntry.length}):__`,
 				value: noString,
 				inline: true,
 			}
@@ -271,7 +276,7 @@ const createEmbed = (yesString: string, noString: string, timeScheduled: string,
 		.setThumbnail("https://cdn.discordapp.com/icons/118758644752842755/107536389c2960072fa81163e3fa4698.webp")
 		.setFooter({
 			text: "Server IP: connect crayon.csgo.fr:27015; password fun",
-			iconURL: "https://i.imgur.com/nuEpvJd.png",
+			iconURL: "https://i.imgur.com/nuEpvJd.png"
 		});
 	return mainEmbed;
 };
@@ -350,6 +355,15 @@ const getCountdown = (timeScheduled: string) => {
 	const asHM = convertMsToHM(duration);
 
 	return [asHM[0], asHM[1], asHM[2], localScheduledTime];
+};
+
+const getCountdownTimeFormatted = (countdownHour: number | Date, countdownMinute: number | Date) => {
+	if(countdownHour > 1)
+		return `Starting in ${countdownHour} hours ${countdownMinute} minutes.`;
+	else if(countdownHour == 1)
+		return `Starting in ${countdownHour} hour ${countdownMinute} minutes.`;
+	else
+		return `Starting in ${countdownMinute} minutes.`;
 };
 
 const assignUserName = (user: string) => {
