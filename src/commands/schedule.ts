@@ -61,6 +61,7 @@ export const schedule: CommandInterface = {
 				{ name: "__Yes:__", value: "Empty", inline: true },
 				{ name: "__No:__", value: "Empty", inline: true }
 			)
+			.setThumbnail("https://cdn.discordapp.com/icons/118758644752842755/107536389c2960072fa81163e3fa4698.webp")
 			.setFooter({
 				text: "Server IP: connect crayon.csgo.fr:27015; password fun",
 				iconURL: "https://i.imgur.com/nuEpvJd.png",
@@ -267,6 +268,7 @@ const createEmbed = (yesString: string, noString: string, timeScheduled: string,
 				inline: true,
 			}
 		)
+		.setThumbnail("https://cdn.discordapp.com/icons/118758644752842755/107536389c2960072fa81163e3fa4698.webp")
 		.setFooter({
 			text: "Server IP: connect crayon.csgo.fr:27015; password fun",
 			iconURL: "https://i.imgur.com/nuEpvJd.png",
