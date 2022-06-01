@@ -5,13 +5,13 @@ Cloned a version to mess around with it and add some additional features.
 
 Uses MongoDB to store information about the bot.
 
-Changelog (Improvements made):
-    - Add two new commands (register & unregister).
+## Changelog (Improvements made):
+    - Add two new commands (/register** & /unregister**).
         - The user can register a flag with the server which will appear in the 10man.
         - Register yourself with your country ISO flag.
         - No fake flags. Represent your country!
         - You can find the ISO code of your country here: (https://www.translatorscafe.com/cafe/ISO-3166-Country-Codes.htm)
-        - examples:
+        - Examples of registering your country:
             - "/register IE" (Ireland)
             - "/register DE" (Germany)
             - "/register DK" (Denmark)
