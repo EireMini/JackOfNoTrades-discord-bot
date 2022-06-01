@@ -5,6 +5,7 @@ export interface UserInterface extends Document {
 	isAdmin: boolean;
 	hasPriority: boolean;
 	isSubscribed: boolean;
+	flag: string;
 }
 
 export const UserModel = new Schema(
@@ -13,6 +14,7 @@ export const UserModel = new Schema(
 		isAdmin: Boolean,
 		hasPriority: Boolean,
 		isSubscribed: Boolean,
+		flag: String
 	},
 	{ collection: "users" }
 );

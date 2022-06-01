@@ -11,6 +11,8 @@ import { spinmap } from "./spinmap";
 import { start } from "./start";
 import { subscribe } from "./subscribe";
 import { unsubscribe } from "./unsubscribe";
+import { register } from "./register";
+import { unregister } from "./unregister";
 import { votemap } from "./votemap";
 
 export const CommandList: CommandInterface[] = [
@@ -26,5 +28,7 @@ export const CommandList: CommandInterface[] = [
 	start,
 	subscribe,
 	unsubscribe,
+	register,
+	unregister,
 	votemap,
 ];

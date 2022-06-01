@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
+import { countryCodeEmoji } from 'country-code-emoji';
 import { CommandInterface } from "../interfaces/CommandInterface";
 import { MessageActionRow, MessageButton, MessageEmbed, ColorResolvable, TextChannel, Message} from "discord.js";
-import { getSubscribers, isAdmin } from "../modules/users";
+import { getSubscribers, isAdmin, getUserFlag } from "../modules/users";
 
 export const schedule: CommandInterface = {
 	data: new SlashCommandBuilder()
@@ -132,6 +133,7 @@ export const schedule: CommandInterface = {
 			console.log(`Schedule Button Clicked:\n   User: ${user}\n   ButtonClicked: ${buttonClicked}`);
 
 			user = assignUserName(user);
+			user = await assignFlag(user, i.user.id);
 
 			if (buttonClicked === "yes") {
 				await i.deferUpdate();
@@ -382,7 +384,7 @@ function copyTextToClipboard(text: string) {
 
 const assignUserName = (user: string) => {
 	user = assignPriority(user);
-	user = assignIrish(user);
+	user = assignIrishLuck(user);
 	return user;
 };
 
@@ -410,7 +412,7 @@ const assignPriority = (user: string) => {
 	return user;
 };
 
-const assignIrish = (user: string) => {
+const assignIrishLuck = (user: string) => {
 	const priority = [
 		"Mini",
 		"NinjaM0nk",
@@ -422,8 +424,18 @@ const assignIrish = (user: string) => {
 
 	for (var i = 0; i < priority.length; i++) {
 		if (user === priority[i]) {
-			user = `☘️ ${user}  🇮🇪`;
+			user = `☘️ ${user}`;
 		}
 	}
 	return user;
+};
+
+async function assignFlag(user: string, userId: string): Promise<string> {
+	const userFlag = await getUserFlag(userId);
+
+	if(userFlag === '')
+		return await Promise.resolve(user);
+
+	const flagEmoji = countryCodeEmoji(userFlag);
+	return await Promise.resolve(`${user} ${flagEmoji}`)
 };
