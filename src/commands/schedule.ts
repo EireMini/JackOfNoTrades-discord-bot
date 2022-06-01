@@ -314,9 +314,6 @@ const createString = (yesEntry: string[], noEntry: string[]) => {
 		for (var l = 0; l < yesEntry.length; l++) {
 			if (l == 9) {
 				yesString = yesString + (l+1) + " | " + yesEntry[l] + "\n🔹 10 Players🔹\n";
-			} 
-			else if (l >= 10) {
-				yesString = yesString + (l+1) + " | " + yesEntry[l] + "\n";
 			}
 			else {
 				yesString = yesString + (l+1) + " | " + yesEntry[l] + "\n";
@@ -380,7 +377,6 @@ const getCountdownTimeFormatted = (countdownHour: number | Date, countdownMinute
 };
 
 function copyTextToClipboard(text: string) {
-	//const util = require('util');
 	require('child_process').spawn('clip').stdin.end(text);
 };
 
