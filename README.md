@@ -6,7 +6,7 @@ Cloned a version to mess around with it and add some additional features.
 Uses MongoDB to store information about the bot.
 
 ## Changelog (Improvements made):
-    - Add two new commands (/register** & /unregister**).
+    - Add two new commands (/register & /unregister).
         - The user can register a flag with the server which will appear in the 10man.
         - Register yourself with your country ISO flag.
         - No fake flags. Represent your country!
@@ -20,6 +20,7 @@ Uses MongoDB to store information about the bot.
     - Add index to Yes list (So you know what position you are)
     - Add 'Copy IP' button to copy to clipboard (for connect server IP & password)
     - Add clickable connect button to launch game & server automatically
-    - Improve text & format on embedded message 
-    - Add Thumbnail to embedded message
+    - Improve text & format on embedded message
+        - Formatted the countdown timer text to make it easier to read
+    - Add 'Jack of no Trades' Thumbnail to embedded message
     - Add lucky shamrock for the Irish
